@@ -4,7 +4,6 @@ title:  "Undefined behavior examples"
 date:   2023-01-08 14:00:00 +0100
 categories: jekyll update
 ---
-Undefined behavior
 
 - null-pointer dereference
 {% highlight cpp %}
@@ -54,4 +53,22 @@ memcpy(arr, arr, 4);
 int arr[4]{};
 int* ptr = nullptr;
 memcpy(ptr, arr, 0);
+{% endhighlight %}
+
+
+- using pointers to objects whose lifetime is ended
+{% highlight cpp %}
+int* ptr = nullptr;
+{
+    int val = 5;
+    ptr = &val;
+}
+printf("%d", *ptr);
+{% endhighlight %}
+
+- dereferencing a one-past-the-end element
+{% highlight cpp %}
+int arr[3]{ 1, 2, 3 };
+int* ptr = arr + 3;
+printf("%d", *ptr);
 {% endhighlight %}
