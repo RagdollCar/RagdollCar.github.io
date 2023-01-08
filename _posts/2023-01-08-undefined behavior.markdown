@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Undefined behavior examples"
-date:   2023-01-08 20:00:00 +0100
+date:   2023-01-08 14:00:00 +0100
 categories: jekyll update
 ---
 Undefined behavior
