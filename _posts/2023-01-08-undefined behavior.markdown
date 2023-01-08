@@ -193,3 +193,23 @@ int main()
     var.~A();
 }
 {% endhighlight %}
+
+
+- delete an object through a pointer to a base with non-virtual destructor
+{% highlight cpp %}
+struct A
+{
+    ~A() { };
+};
+
+struct B : A
+{
+
+};
+
+int main()
+{
+    A* var = new B{};
+    delete var;
+}
+{% endhighlight %}
