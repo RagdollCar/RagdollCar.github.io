@@ -155,3 +155,18 @@ int main()
     ptr_2(5);
 }
 {% endhighlight %}
+
+
+- interpret the bytes of an object as a value of a different type
+{% highlight cpp %}
+double var_1 = 1.0;
+long long var_2 = *reinterpret_cast<long long*>(&var_1);
+{% endhighlight %}
+
+
+- subtract pointers to different arrays
+{% highlight cpp %}
+int arr_1[10]{};
+int arr_2[10]{};
+std::ptrdiff_t diff = &arr_2[10] - &arr_1[0];
+{% endhighlight %}
