@@ -170,3 +170,11 @@ int arr_1[10]{};
 int arr_2[10]{};
 std::ptrdiff_t diff = &arr_2[10] - &arr_1[0];
 {% endhighlight %}
+
+
+- in the bitwise shift operator expression when a value of the right operand is negative or is greater or equal to the number of bits in the promoted left operand
+{% highlight cpp %}
+char var_1 = 'A';
+int var_2 = var_1 >> 8;
+int var_3 = var_1 >> -1;
+{% endhighlight %}
