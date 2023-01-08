@@ -141,3 +141,17 @@ int main()
     function(-1);
 }
 {% endhighlight %}
+
+
+- call a function through a pointer to a different function type
+{% highlight cpp %}
+void function_1(int) { }
+void function_2(short) { }
+
+int main()
+{
+    void (*ptr_1)(int) = &function_1;
+    void (*ptr_2)(short) = reinterpret_cast<decltype(&function_2)>(ptr_1);
+    ptr_2(5);
+}
+{% endhighlight %}
