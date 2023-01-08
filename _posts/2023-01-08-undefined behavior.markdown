@@ -75,6 +75,30 @@ printf("%d", *ptr);
 {% endhighlight %}
 
 
+- access std::string when pos > size()
+{% highlight cpp %}
+std::string var{ "text" };
+auto pos = var.size() + 1;
+var[pos];
+{% endhighlight %}
+
+
+- modify returned std::string reference when pos == size()
+{% highlight cpp %}
+std::string var{ "text" };
+auto pos = var.size();
+var[pos] = 'a';
+{% endhighlight %}
+
+
+- access std::string_view when pos >= size()
+{% highlight cpp %}
+std::string_view var{ "text" };
+auto pos = var.size();
+var[pos];
+{% endhighlight %}
+
+
 - using uninitialized local variable
 {% highlight cpp %}
 bool var;
