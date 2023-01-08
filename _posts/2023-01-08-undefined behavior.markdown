@@ -19,7 +19,7 @@ int var = std::numeric_limits<int>::max();
 {% endhighlight %}
 
 
-- calling a value-returning function without return statement
+- calling a value-returning function which does not return
 {% highlight cpp %}
 int function()
 {
@@ -105,4 +105,15 @@ printf("%d", *ptr);
 {% endhighlight %}
 
 
+- assumed expression is not evaluated to true
+{% highlight cpp %}
+void function(int var)
+{
+    [[assume(var > 0)]];
+}
 
+int main()
+{
+    function(-1);
+}
+{% endhighlight %}
