@@ -178,3 +178,18 @@ char var_1 = 'A';
 int var_2 = var_1 >> 8;
 int var_3 = var_1 >> -1;
 {% endhighlight %}
+
+
+- call a destructor twice
+{% highlight cpp %}
+class A
+{
+
+};
+
+int main()
+{
+    A var;
+    var.~A();
+}
+{% endhighlight %}
