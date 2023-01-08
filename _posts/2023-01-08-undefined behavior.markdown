@@ -75,7 +75,7 @@ printf("%d", *ptr);
 {% endhighlight %}
 
 
-- access std::string when pos > size()
+- accessing std::string when pos > size()
 {% highlight cpp %}
 std::string var{ "text" };
 auto pos = var.size() + 1;
@@ -83,7 +83,7 @@ var[pos];
 {% endhighlight %}
 
 
-- modify returned std::string reference when pos == size()
+- modifying returned std::string reference when pos == size()
 {% highlight cpp %}
 std::string var{ "text" };
 auto pos = var.size();
@@ -91,7 +91,7 @@ var[pos] = 'a';
 {% endhighlight %}
 
 
-- access std::string_view when pos >= size()
+- accessing std::string_view when pos >= size()
 {% highlight cpp %}
 std::string_view var{ "text" };
 auto pos = var.size();
@@ -107,7 +107,7 @@ if (var)
 {% endhighlight %}
 
 
-- dereference a pointer which was passed to std::realloc
+- dereferencing a pointer which was passed to std::realloc
 {% highlight cpp %}
 int* var_1 = static_cast<int*>(std::malloc(sizeof(int)));
 int* var_2 = static_cast<int*>(std::realloc(var_1, sizeof(int)));
@@ -121,7 +121,7 @@ while (true) { }
 {% endhighlight %}
 
 
-- use a pointer after free
+- using a pointer after free
 {% highlight cpp %}
 int* ptr = new int{ 5 };
 delete ptr;
@@ -143,7 +143,7 @@ int main()
 {% endhighlight %}
 
 
-- call a function through a pointer to a different function type
+- calling a function through a pointer to a different function type
 {% highlight cpp %}
 void function_1(int) { }
 void function_2(short) { }
@@ -157,14 +157,14 @@ int main()
 {% endhighlight %}
 
 
-- interpret the bytes of an object as a value of a different type
+- interpreting the bytes of an object as a value of a different type
 {% highlight cpp %}
 double var_1 = 1.0;
 long long var_2 = *reinterpret_cast<long long*>(&var_1);
 {% endhighlight %}
 
 
-- subtract pointers to different arrays
+- subtracting pointers to different arrays
 {% highlight cpp %}
 int arr_1[10]{};
 int arr_2[10]{};
@@ -180,32 +180,26 @@ int var_3 = var_1 >> -1;
 {% endhighlight %}
 
 
-- call a destructor twice
+- calling a destructor twice
 {% highlight cpp %}
-class A
-{
-
-};
+class A{ };
 
 int main()
 {
     A var;
-    var.~A();
+    var.~A(); // second call is when A leaves its current scope
 }
 {% endhighlight %}
 
 
-- delete an object through a pointer to a base with non-virtual destructor
+- deleting an object through a pointer to a base with non-virtual destructor
 {% highlight cpp %}
 struct A
 {
     ~A() { };
 };
 
-struct B : A
-{
-
-};
+struct B : A{ };
 
 int main()
 {
