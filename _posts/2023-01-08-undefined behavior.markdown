@@ -66,9 +66,43 @@ int* ptr = nullptr;
 printf("%d", *ptr);
 {% endhighlight %}
 
+
 - dereferencing a one-past-the-end element
 {% highlight cpp %}
 int arr[3]{ 1, 2, 3 };
 int* ptr = arr + 3;
 printf("%d", *ptr);
 {% endhighlight %}
+
+
+- using uninitialized local variable
+{% highlight cpp %}
+bool var;
+if (var)
+    printf("var is true");
+{% endhighlight %}
+
+
+- dereference a pointer which was passed to std::realloc
+{% highlight cpp %}
+int* var_1 = static_cast<int*>(std::malloc(sizeof(int)));
+int* var_2 = static_cast<int*>(std::realloc(var_1, sizeof(int)));
+*var_1 = 10;
+{% endhighlight %}
+
+
+- infinite loop without side-effects
+{% highlight cpp %}
+while (true) { }
+{% endhighlight %}
+
+
+- use a pointer after free
+{% highlight cpp %}
+int* ptr = new int{ 5 };
+delete ptr;
+printf("%d", *ptr);
+{% endhighlight %}
+
+
+
