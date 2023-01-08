@@ -6,19 +6,19 @@ categories: jekyll update
 ---
 Undefined behavior
 
-1. null-pointer dereference
+null-pointer dereference
 {% highlight cpp %}
 int* ptr = nullptr;
 printf("%d", *ptr);
 {% endhighlight %}
 
-2. signed integer overflow
+signed integer overflow
 {% highlight cpp %}
 int var = std::numeric_limits<int>::max();
 ++var;
 {% endhighlight %}
 
-3. calling a value-returning function without return statement
+calling a value-returning function without return statement
 {% highlight cpp %}
 int function()
 {
@@ -31,20 +31,20 @@ int main()
 }
 {% endhighlight %}
 
-4. modifying a const value
+modifying a const value
 {% highlight cpp %}
 const int var = 1;
 int* ptr = const_cast<int*>(&var);
 *ptr = 2;
 {% endhighlight %}
 
-5. overlapping objects with memcpy
+overlapping objects with memcpy
 {% highlight cpp %}
 int arr[4]{};
 memcpy(arr, arr, 4);
 {% endhighlight %}
 
-6. memcpy when destination/source is a nullptr (even if count is 0)
+memcpy when destination/source is a nullptr (even if count is 0)
 {% highlight cpp %}
 int arr[4]{};
 int* ptr = nullptr;
