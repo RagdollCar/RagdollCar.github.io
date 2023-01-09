@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Set handler for allocation fail"
-date:   2023-01-09 14:00:00 +0100
+date:   2023-01-10 23:00:00 +0100
 categories: jekyll update
 ---
 
@@ -17,37 +17,37 @@ std::vector<char*> vec;
 
 void my_handler()
 {
-	printf("Failed to allocate memory\n");
+    printf("Failed to allocate memory\n");
 
-	if (reservedBuffer) {
-		delete[] reservedBuffer;
-		reservedBuffer = nullptr;
-		return;
-	}
+    if (reservedBuffer) {
+        delete[] reservedBuffer;
+        reservedBuffer = nullptr;
+        return;
+    }
 
-	throw std::bad_alloc{};
+    throw std::bad_alloc{};
 }
 
 int main()
 {
-	reservedBuffer = new char[100 * MB];
-	std::set_new_handler(my_handler);
+    reservedBuffer = new char[100 * MB];
+    std::set_new_handler(my_handler);
 
-	try {
-		while (true)
-		{
-			char* ptr = new char[100 * MB];
-			vec.push_back(ptr);
-		}
-	}
-	catch (const std::bad_alloc& ex) {
-		printf("%s", ex.what());
-	}
+    try {
+        while (true)
+        {
+            char* ptr = new char[100 * MB];
+            vec.push_back(ptr);
+        }
+    }
+    catch (const std::bad_alloc& ex) {
+        printf("%s", ex.what());
+    }
 
-	for (auto elem : vec)
-		delete[] elem;
+    for (auto elem : vec)
+        delete[] elem;
 
-	if (reservedBuffer)
-		delete[] reservedBuffer;
+    if (reservedBuffer)
+        delete[] reservedBuffer;
 }
 ```
