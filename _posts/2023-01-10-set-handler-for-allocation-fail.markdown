@@ -19,7 +19,8 @@ static uint8_t* reservedBuffer;
 
 Now we must define a function which will be called when the memory allocation fails. Such function may check if there is some memory that can be freed. If so, then deallocate it. Now we have two choices:
 - we can just return without throwing an exception, it will cause invoking a new try of allocating memory which previously failed
-- or we can throw an exception which might be caught by the caller
+- or we can throw an exception which might be caught by the caller.
+Assuming that we have a global buffer with some reserved space, firstly we deallocate such buffer and just return from the function. For the second time of calling `my_handler` the global buffer will be `nullptr`, no memory will be available so we end up with throwing an exception.
 ```cpp
 void my_handler()
 {
@@ -35,9 +36,14 @@ void my_handler()
 }
 ```
 
+To set such function to be called for each memory allocation fail, use the function below:
+```cpp
+std::set_new_handler(my_handler);
+```
 
+What is left is to create a simple while loop allocating memory. When such allocation fails then our function `my_handler` is called. For the first time we deallocate memory from the global buffer and let the loop continue. For the second time we throw an exception so the caller can catch it and do some other stuff.
 
-
+The whole program is as follows:
 ```cpp
 #include <cstdio>
 #include <new>
@@ -84,3 +90,6 @@ int main()
         delete[] reservedBuffer;
 }
 ```
+
+Refs:
+[0] https://en.cppreference.com/w/cpp/memory/new/set_new_handler
