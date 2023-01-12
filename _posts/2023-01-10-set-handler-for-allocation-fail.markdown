@@ -21,6 +21,7 @@ Now we must define a function which will be called when the memory allocation fa
 - we can just return without throwing an exception, it will cause invoking a new try of allocating memory which previously failed
 - or we can throw an exception which might be caught by the caller.
 Assuming that we have a global buffer with some reserved space, firstly we deallocate such buffer and just return from the function. For the second time of calling `my_handler` the global buffer will be `nullptr`, no memory will be available so we end up with throwing an exception.
+
 ```cpp
 void my_handler()
 {
@@ -92,4 +93,6 @@ int main()
 ```
 
 Refs:
-[0] https://en.cppreference.com/w/cpp/memory/new/set_new_handler
+- [source0]
+
+[source0]: https://en.cppreference.com/w/cpp/memory/new/set_new_handler
