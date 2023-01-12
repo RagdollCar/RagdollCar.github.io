@@ -59,37 +59,37 @@ std::vector<uint8_t*> vec;
 
 void my_handler()
 {
-	printf("Failed to allocate memory\n");
+    printf("Failed to allocate memory\n");
 
-	if (reservedBuffer) {
-		delete[] reservedBuffer;
-		reservedBuffer = nullptr;
-		return;
-	}
+    if (reservedBuffer) {
+        delete[] reservedBuffer;
+        reservedBuffer = nullptr;
+        return;
+    }
 
-	throw std::bad_alloc{ };
+    throw std::bad_alloc{ };
 }
 
 int main()
 {
-	reservedBuffer = new uint8_t[1 * GB]{ };
-	std::set_new_handler(my_handler);
+    reservedBuffer = new uint8_t[1 * GB]{ };
+    std::set_new_handler(my_handler);
 
-	try {
-		while (true) {
-			uint8_t* ptr = new uint8_t[MB]{ };
-			vec.push_back(ptr);
-		}
-	}
-	catch (const std::bad_alloc& ex) {
-		printf("%s\n", ex.what());
-	}
+    try {
+        while (true) {
+            uint8_t* ptr = new uint8_t[MB]{ };
+            vec.push_back(ptr);
+        }
+    }
+    catch (const std::bad_alloc& ex) {
+        printf("%s\n", ex.what());
+    }
 
-	for (auto elem : vec)
-		delete[] elem;
+    for (auto elem : vec)
+        delete[] elem;
 
-	if (reservedBuffer)
-		delete[] reservedBuffer;
+    if (reservedBuffer)
+        delete[] reservedBuffer;
 }
 ```
 
