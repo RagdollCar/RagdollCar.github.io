@@ -7,14 +7,7 @@ categories: jekyll update
 
 Sometimes memory allocation fails. It is usually caused by the missing memory. In such situations `operator new` throws an exception. But before it happens, a special function is called. We have an ability to control this behavior by using a function `std::set_new_handler`. So, let's start.
 
-First, define some static variables representing units of memory size.
-```cpp
-static constexpr std::size_t KB{ 1024 };
-static constexpr std::size_t MB{ 1024 * KB };
-static constexpr std::size_t GB{ 1024 * MB };
-```
-
-Then create a static variable for a reserved buffer. It will be freed when we're out of memory.
+First create a static variable for a reserved buffer. It will be freed when we're out of memory.
 ```cpp
 static uint8_t* reservedBuffer;
 ```
