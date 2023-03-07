@@ -9,8 +9,8 @@ Using {}-initializer is related to the list initialization which doesn't allow n
 
 Type int is capable of holding type signed char, but type signed char cannot hold int:
 ```cpp
-int b{ a };  // compiles with narrowing conversion
 signed char a{ 'A' };
+int b{ a };
 signed char c{ b };  // error
 signed char d{ static_cast<signed char>(b) };  // compiles, explicit casting
 ```
@@ -46,7 +46,7 @@ Also, cannot assign integer to floating-point:
 ```cpp
 int a = 1;
 float b = a;
-// float c{ a };  // error
+float c{ a };  // error
 ```
 
 Using {}-initializer detects narrowing conversions as below:
@@ -64,16 +64,15 @@ struct A
 
 Structure `A` is an aggregate type:
 ```
+struct A
 {
-	struct A
-	{
-		int x;
-		int y;
-	};
+    int x;
+    int y;
+};
 
-	A a{ 1 };  // aggregate initialization, x=1, y is default-initialized and its value is indeterminated, it's not necessarily 0
-	A a2();  // function declaration
-	A a3{ };  // zero-initialization, x=0, y=0
+A a{ 1 };  // aggregate initialization, x=1, y is default-initialized and its value is indeterminated, it's not necessarily 0
+A a2();  // function declaration
+A a3{ };  // zero-initialization, x=0, y=0
 }
 ```
 
@@ -85,15 +84,13 @@ std::vector<int> b{ 5, 10 }; // 2 elements with value 5 and 10
 
 Sometimes we can run into `the most vexing parse`:
 ```cpp
-{
-	std::string str();
-	std::cout << str.size();  // error, str is not a std::string, it's a function declaration
-	std::string str2{ };  // str2 is a std::string
+std::string str();
+std::cout << str.size();  // error, str is not a std::string, it's a function declaration
+std::string str2{ };  // str2 is a std::string
 
-	std::thread thr();
-	thr.join();  // error, thr is not a std::thread, it's a function declaration
-	std::thread thr2{ };  // thr2 is a std::thread
-}
+std::thread thr();
+thr.join();  // error, thr is not a std::thread, it's a function declaration
+std::thread thr2{ };  // thr2 is a std::thread
 ```
 
 More:
