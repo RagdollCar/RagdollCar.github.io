@@ -83,14 +83,6 @@ var[pos];
 {% endhighlight %}
 
 
-- modifying returned std::string reference when pos == size()
-{% highlight cpp %}
-std::string var{ "text" };
-auto pos = var.size();
-var[pos] = 'a';
-{% endhighlight %}
-
-
 - accessing std::string_view when pos >= size()
 {% highlight cpp %}
 std::string_view var{ "text" };
